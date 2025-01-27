@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "930974291784",
+    "project_id": "compose-fcm",
+    "storage_bucket": "compose-fcm.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930974291784:android:d5d495935db2ebea08857d",
+        "android_client_info": {
+          "package_name": "com.austinevick.compose_fcm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxVk_A4IXGhJgiXBUhDLqzD2AAn8kUmRs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930974291784:android:477d15e7204c685008857d",
+        "android_client_info": {
+          "package_name": "com.example.expense_tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxVk_A4IXGhJgiXBUhDLqzD2AAn8kUmRs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
