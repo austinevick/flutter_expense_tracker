@@ -12,14 +12,15 @@ import 'package:provider/provider.dart';
 import '../../widget/custom_button.dart';
 import 'currency_view_model.dart';
 
-class CurrencyListScreen extends StatefulWidget {
-  const CurrencyListScreen({super.key});
+class CurrencyConverterScreen extends StatefulWidget {
+  const CurrencyConverterScreen({super.key});
 
   @override
-  State<CurrencyListScreen> createState() => _CurrencyListScreenState();
+  State<CurrencyConverterScreen> createState() =>
+      _CurrencyConverterScreenState();
 }
 
-class _CurrencyListScreenState extends State<CurrencyListScreen> {
+class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
   final amountController = TextEditingController();
 
   @override
@@ -85,13 +86,29 @@ class _CurrencyListScreenState extends State<CurrencyListScreen> {
                     hintStyle: TextStyle(fontSize: 22, color: Colors.grey),
                   ),
                   const SizedBox(height: 20),
-                  viewModel.conversionRate != null
-                      ? CustomText(
-                          '${formatNumber(viewModel.formatAmount(amountController.text))} ${viewModel.conversionRate!.baseCode} = ${formatNumber(viewModel.conversionRate!.conversionResult ?? 0)} ${viewModel.conversionRate!.targetCode}',
-                          textAlign: TextAlign.center,
-                        )
-                      : CustomText(
-                          '${viewModel.fromCurrency.rate} ${viewModel.fromCurrency.code} = ${viewModel.toCurrency.rate} ${viewModel.toCurrency.code}'),
+                  CustomButton(
+                      radius: 8,
+                      padding: 8,
+                      borderSide: BorderSide(
+                        color: Color(0xffe3e1e6),
+                      ),
+                      child: Column(
+                        children: [
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child: CustomText("Indicative exchange rate",
+
+                                  paddingBottom: 8,
+                                  color: Colors.grey)),
+                          viewModel.conversionRate != null
+                              ? CustomText(
+                                  '${formatNumber(viewModel.formatAmount(amountController.text))} ${viewModel.conversionRate!.baseCode} = ${formatNumber(viewModel.conversionRate!.conversionResult ?? 0)} ${viewModel.conversionRate!.targetCode}',
+                                  textAlign: TextAlign.center,
+                                )
+                              : CustomText(
+                                  '${viewModel.fromCurrency.rate} ${viewModel.fromCurrency.code} = ${viewModel.toCurrency.rate} ${viewModel.toCurrency.code}')
+                        ],
+                      )),
                   const SizedBox(height: 20),
                   CustomButton(
                     isLoading: viewModel.isLoading,

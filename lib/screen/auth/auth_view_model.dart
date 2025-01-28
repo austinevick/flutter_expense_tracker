@@ -46,21 +46,20 @@ class AuthViewModel extends ChangeNotifier {
           email: email, password: password);
       if (response.user != null) {
         simpleNotification('Registration Successful', false);
-      } else {
-        simpleNotification('Something went wrong', true);
       }
       setLoadingState(false);
       return response;
     } on FirebaseAuthException catch (e) {
-      print(e);
       simpleNotification(e.message.toString(), true);
       setLoadingState(false);
       rethrow;
     } catch (e) {
-      print(e);
       simpleNotification('Something went wrong', true);
       setLoadingState(false);
       rethrow;
     }
   }
+
+  Future<void> logout() async => await auth.signOut();
+
 }

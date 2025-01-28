@@ -45,6 +45,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         controller: email,
                         autofillHints: [AutofillHints.email],
                         hintText: 'Email',
+                        textCapitalization: TextCapitalization.none,
+                        textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) => validateEmail(value!),
                       ),
@@ -77,7 +79,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
                                         builder: (ctx) => HomeScreen()),
-                                    (r) => true);
+                                    (r) => false);
                               }
                             });
                           }

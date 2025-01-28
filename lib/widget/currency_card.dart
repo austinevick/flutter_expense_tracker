@@ -1,4 +1,4 @@
-import 'package:expense_tracker/screen/currency/currency_list_screen.dart';
+import 'package:expense_tracker/screen/currency/currency_converter_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../common/Utils.dart';

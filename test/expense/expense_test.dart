@@ -10,26 +10,21 @@ class MockHiveBox extends Mock implements Box {}
 
 void main() {
   late final MockExpense mockExpense;
-  late final MockHiveBox mockHiveBox;
+
 
   setUpAll(() {
     mockExpense = MockExpense();
-    mockHiveBox = MockHiveBox();
   });
 
+
   group("Expense", () {
+
     test("Add Expense", () async {
 
-      final expense = ExpenseModel(
-        date: DateTime.now(),
-        description: "Test",
-        amount: 100,
-        category: "Test",
-      );
-      when(mockExpense.addExpense(expense)).thenAnswer((_) async => 1);
+      when(mockExpense.box.values.length).thenAnswer((_)  => 1);
 
-      final result = await mockExpense.addExpense(expense);
-      expect(result, 1);
+      final result = mockExpense.box.values.length > 1;
+      expect(result, true);
     });
   });
 }

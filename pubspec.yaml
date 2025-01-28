@@ -41,7 +41,6 @@ dependencies:
   hive_flutter:
   firebase_core: ^3.10.1
   firebase_auth: ^5.4.1
-  shared_preferences:
   intl:
   overlay_support:
 

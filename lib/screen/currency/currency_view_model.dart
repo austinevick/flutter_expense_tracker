@@ -1,5 +1,5 @@
 import 'package:expense_tracker/common/Utils.dart';
-import 'package:expense_tracker/screen/currency/currency_list_screen.dart';
+import 'package:expense_tracker/screen/currency/currency_converter_screen.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../data/model/conversion_rate_model.dart';

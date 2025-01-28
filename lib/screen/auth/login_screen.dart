@@ -46,7 +46,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: email,
                         autofillHints: [AutofillHints.email],
                         hintText: 'Email',
+                        textCapitalization: TextCapitalization.none,
                         keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
                         validator: (value) => validateEmail(value!),
                       ),
                       SizedBox(height: 16),
@@ -78,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
                                         builder: (ctx) => HomeScreen()),
-                                    (r) => true);
+                                    (r) => false);
                               }
                             });
                           }
