@@ -2,6 +2,10 @@
 
 An expense tracking mobile application with currency converter feature built with Flutter.
 
+# Screenshots
+<img src="https://github.com/austinevick/flutter_expense_tracker/blob/main/screenshots/Screenshot_20250128-070130.jpg" width="250">   <img src="https://github.com/austinevick/flutter_expense_tracker/blob/main/screenshots/Screenshot_20250128-070241.jpg" width="250">  <img src="https://github.com/austinevick/flutter_expense_tracker/blob/main/screenshots/Screenshot_20250128-070225.jpg" width="250">   <img src="https://github.com/austinevick/flutter_expense_tracker/blob/main/screenshots/Screenshot_20250128_074502.png" width="250">
+
+
 
 ### Architectural Pattern
 - MVVM architecture
