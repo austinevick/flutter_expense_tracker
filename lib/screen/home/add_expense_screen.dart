@@ -1,19 +1,20 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:expense_tracker/widget/amount_textfield.dart';
 import 'package:expense_tracker/widget/custom_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/app_colors.dart';
-import '../../common/input_formatters.dart';
 import '../../data/model/expense_model.dart';
 import '../../widget/custom_text.dart';
 import '../../widget/custom_text_field.dart';
 import 'home_view_model.dart';
 
 class AddExpenseScreen extends StatefulWidget {
-  const AddExpenseScreen({super.key});
+  final ExpenseModel? model;
+  final int? index;
+  const AddExpenseScreen({super.key, this.model, this.index});
 
   @override
   State<AddExpenseScreen> createState() => _AddExpenseScreenState();
@@ -27,6 +28,16 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   final category = TextEditingController();
 
   @override
+  void initState() {
+    if (widget.model != null) {
+      description.text = widget.model!.description;
+      amount.text = widget.model!.amount.toString();
+      category.text = widget.model!.category;
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<HomeViewModel>(builder: (context, viewModel, child) {
       return Scaffold(
@@ -36,6 +47,14 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
           centerTitle: true,
           iconTheme: IconThemeData(color: Colors.white),
           title: CustomText('Add Expense', color: Colors.white),
+          actions: [
+            if (widget.model != null)
+              IconButton(
+                  onPressed: () => viewModel
+                      .deleteExpense(widget.index!)
+                      .whenComplete(() => Navigator.of(context).pop()),
+                  icon: Icon(Icons.delete_outline))
+          ],
         ),
         body: SafeArea(
           child: Form(
@@ -138,9 +157,18 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                                     date: DateTime.now(),
                                     category: category.text);
 
-                                 Future.delayed(Duration(seconds: 1)).whenComplete(()=> viewModel
-                                    .addExpense(expense)
-                                    .whenComplete(() => Navigator.pop(context)));
+                                Future.delayed(Duration(seconds: 1))
+                                    .whenComplete(() {
+                                  if (widget.model != null) {
+                                    viewModel
+                                        .updateExpense(widget.index!, expense)
+                                        .whenComplete(
+                                            () => Navigator.pop(context));
+                                  } else {
+                                    viewModel.addExpense(expense).whenComplete(
+                                        () => Navigator.pop(context));
+                                  }
+                                });
                               }
                             },
                             color: primaryColor,

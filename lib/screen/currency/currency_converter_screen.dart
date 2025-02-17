@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:expense_tracker/common/Utils.dart';
 import 'package:expense_tracker/common/app_colors.dart';
 import 'package:expense_tracker/data/model/conversion_rate_model.dart';
@@ -97,9 +95,7 @@ class _CurrencyConverterScreenState extends State<CurrencyConverterScreen> {
                           Align(
                               alignment: Alignment.centerLeft,
                               child: CustomText("Indicative exchange rate",
-
-                                  paddingBottom: 8,
-                                  color: Colors.grey)),
+                                  paddingBottom: 8, color: Colors.grey)),
                           viewModel.conversionRate != null
                               ? CustomText(
                                   '${formatNumber(viewModel.formatAmount(amountController.text))} ${viewModel.conversionRate!.baseCode} = ${formatNumber(viewModel.conversionRate!.conversionResult ?? 0)} ${viewModel.conversionRate!.targetCode}',
@@ -145,48 +141,60 @@ class CurrencyModal extends StatelessWidget {
     return Consumer<CurrencyViewModel>(builder: (context, viewModel, child) {
       return Padding(
         padding: EdgeInsets.only(top: 25),
-        child: FutureBuilder(
-            future: viewModel.getExchangeRate("USD"),
-            builder: (ctx, snapshot) {
-              if (snapshot.hasError) {
-                return Center(
-                  child: Column(
-                    children: [
-                      CustomText('Something went wrong',
-                          textAlign: TextAlign.center,
-                          fontWeight: FontWeight.w700,
-                          paddingTop: 30,
-                          paddingBottom: 16),
-                      CustomButton(
-                          height: 50,
-                          onPressed: () => viewModel.refreshProvider(),
-                          child:
-                              CustomText('Retry', fontWeight: FontWeight.w700))
-                    ],
-                  ),
-                );
-              }
-              if (snapshot.hasData) {
-                return ListView.builder(
-                    itemCount: snapshot.data!.conversionRates.length,
-                    itemBuilder: (context, index) {
-                      final currency =
-                          snapshot.data!.conversionRates.keys.elementAt(index);
-                      final rate = snapshot.data!.conversionRates.values
-                          .elementAt(index);
-                      return ListTile(
-                          tileColor: Colors.white,
-                          leading: CircleAvatar(
-                              backgroundColor: primaryColor,
-                              child:
-                                  CustomText(currency[0], color: Colors.white)),
-                          title: CustomText(currency),
-                          onTap: () =>
-                              Navigator.pop(context, Currency(currency, rate)));
-                    });
-              }
-              return Center(child: CircularProgressIndicator());
-            }),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: CustomTextfield(
+                hintText: 'Search',
+              ),
+            ),
+            Expanded(
+              child: FutureBuilder(
+                  future: viewModel.getExchangeRate("USD"),
+                  builder: (ctx, snapshot) {
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Column(
+                          children: [
+                            CustomText('Something went wrong',
+                                textAlign: TextAlign.center,
+                                fontWeight: FontWeight.w700,
+                                paddingTop: 30,
+                                paddingBottom: 16),
+                            CustomButton(
+                                height: 50,
+                                onPressed: () => viewModel.refreshProvider(),
+                                child: CustomText('Retry',
+                                    fontWeight: FontWeight.w700))
+                          ],
+                        ),
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                          itemCount: snapshot.data!.conversionRates.length,
+                          itemBuilder: (context, index) {
+                            final currency = snapshot.data!.conversionRates.keys
+                                .elementAt(index);
+                            final rate = snapshot.data!.conversionRates.values
+                                .elementAt(index);
+                            return ListTile(
+                                tileColor: Colors.white,
+                                leading: CircleAvatar(
+                                    backgroundColor: primaryColor,
+                                    child: CustomText(currency[0],
+                                        color: Colors.white)),
+                                title: CustomText(currency),
+                                onTap: () => Navigator.pop(
+                                    context, Currency(currency, rate)));
+                          });
+                    }
+                    return Center(child: CircularProgressIndicator());
+                  }),
+            ),
+          ],
+        ),
       );
     });
   }

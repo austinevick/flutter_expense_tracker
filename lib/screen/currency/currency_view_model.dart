@@ -17,6 +17,8 @@ class CurrencyViewModel extends ChangeNotifier {
 
   ConversionRateResponseModel? conversionRate;
 
+  Map<String, num> filteredCurrencies = {};
+
   Currency fromCurrency = Currency('USD', 1);
   Currency toCurrency = Currency('USD', 1);
 
@@ -28,6 +30,8 @@ class CurrencyViewModel extends ChangeNotifier {
     _isLoading = value;
     notifyListeners();
   }
+
+  void filteredCurrency(String text, Map<String, num> conversionRates) {}
 
   void setFromCurrency(Currency currency) {
     fromCurrency = currency;
@@ -55,8 +59,7 @@ class CurrencyViewModel extends ChangeNotifier {
 
   Future<ExchangeRateResponseModel> getExchangeRate(String code) async {
     try {
-      final response = await repository.getExchangeRate(code);
-      return response;
+      return await repository.getExchangeRate(code);
     } catch (e) {
       rethrow;
     }
@@ -69,7 +72,6 @@ class CurrencyViewModel extends ChangeNotifier {
       final response = await repository.convertCurrency(model);
       if (response.result == "success") {
         conversionRate = response;
-        notifyListeners();
         setLoadingState(false);
         return response;
       } else {

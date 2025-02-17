@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:expense_tracker/common/Utils.dart';
 import 'package:hive/hive.dart';
 
@@ -24,7 +22,7 @@ class LocalDataSource {
         print(data.timeNextUpdateUtc);
         return data;
       } else {
-       await box.delete(key);
+        await box.delete(key);
       }
     }
     return null;

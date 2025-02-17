@@ -25,7 +25,7 @@ class HomeViewModel extends ChangeNotifier {
   Future<int> addExpense(ExpenseModel expense) async {
     try {
       setLoadingState(true);
-     final result= await box.add(expense);
+      final result = await box.add(expense);
       setLoadingState(false);
       return result;
     } catch (e) {
@@ -34,11 +34,17 @@ class HomeViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> deleteExpense(int index) async {
+  Future<void> updateExpense(int i, ExpenseModel expense) async {
     try {
-      await box.deleteAt(index);
+      setLoadingState(true);
+      await box.putAt(i, expense);
+      setLoadingState(false);
     } catch (e) {
-      print(e);
+      setLoadingState(false);
+      rethrow;
     }
   }
+
+  Future<void> deleteExpense(int index) async =>
+      await box.deleteAt(index).whenComplete(() => notifyListeners());
 }

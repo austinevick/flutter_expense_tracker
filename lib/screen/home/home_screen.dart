@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 import '../../common/Utils.dart';
 import '../../common/app_colors.dart';
-import '../currency/currency_converter_screen.dart';
 import 'add_expense_screen.dart';
 import 'home_view_model.dart';
 
@@ -47,7 +46,13 @@ class HomeScreen extends StatelessWidget {
                 ...List.generate(viewModel.box.length, (i) {
                   final expense = viewModel.box.getAt(i);
                   return ListTile(
-                      onTap: () => viewModel.deleteExpense(i),
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (ctx) => AddExpenseScreen(
+                                    index: i,
+                                    model: expense,
+                                  ))),
                       contentPadding: EdgeInsets.zero,
                       leading: CircleAvatar(
                           backgroundColor: primaryColor,
@@ -59,7 +64,8 @@ class HomeScreen extends StatelessWidget {
                       trailing: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          CustomText(formatAmount(expense.amount),fontSize: 16,color: Colors.red),
+                          CustomText(formatAmount(expense.amount),
+                              fontSize: 16, color: Colors.red),
                           CustomText(formatDate(expense.date),
                               color: Colors.grey),
                         ],
